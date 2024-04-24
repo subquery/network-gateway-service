@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  auth-redis:
+    image: redis:7-alpine
+    container_name: auth-cache
+    restart: always
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+#
+#  auth-service:
+#    container_name: subql_network_auth_service
+#    image: auth-service:latest
+#    ports:
+#      - 3030:3030
+#    environment:
+#      - SK=2de55e11deb5b936a838d61978170a4dab9f23056736fed3409301f58db07d8b
+#      - CONSUMER=0x6De0bf7cd88344aa1356038fAE8ba6E05B50D4c1
+#      - REDIS_URL=redis://redis:6379
+#      - CHAIN_ID=80001
+#      - NETWORK=testnet
